@@ -1,7 +1,7 @@
 
 <p>Start Time:</p>
 <form action="">
-<select name="startTime">
+<select id="startTime" name="startTime">
 <?php
 if(file_exists("./formatting/times.php")){
 	
@@ -14,7 +14,7 @@ if(file_exists("./formatting/times.php")){
 
 <p> Stop Time: </p>
 <form action="">
-<select name="stopTime">
+<select id="stopTime" name="stopTime">
 <?php
 if(file_exists("./formatting/times.php")){
 	
@@ -24,3 +24,17 @@ if(file_exists("./formatting/times.php")){
 ?>
 </select>
 </form>
+
+<script>
+	$("#startTime").change(function()
+	{
+		stopValue = parseInt($("#stopTime").val());
+		startValue = parseInt($("#startTime").val());
+		alert(startValue + " : " + stopValue);
+		$("#stopTime").empty();
+		
+	}
+	);
+	
+	
+</script>

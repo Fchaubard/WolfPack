@@ -2,7 +2,9 @@
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
-
+else {
+  die("<pre> No include </pre>");
+}
 ?> 
 
 <script src="jquery/jquery.js" type="text/javascript" language="javascript"></script>
@@ -51,6 +53,7 @@ $(document).ready(function()
 	{
 		$("#login_form").trigger('submit');
 	});
+	
 });
 </script>
 <style type="text/css">
@@ -106,7 +109,7 @@ margin-top: 10px;
     
 	</form>
 	
-	<form action="signup.php" method="get">
+	<form action="signup.php" method="put" id="signup">
 		<input type="submit" value="Sign Up for a WolfPack Account">
 		
 	</form>
@@ -137,6 +140,9 @@ margin-top: 10px;
 		$("#form").show();
 		$("#logout").hide();
 		$("#info").hide();
+	});
+	$("#signup").submit(function() {
+		window.location = "signup.php";
 	});
 	</script>
 </div><!-- /page -->

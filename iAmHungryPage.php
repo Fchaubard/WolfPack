@@ -11,7 +11,7 @@ if(file_exists("./formatting/header.php")){
 
 	<div data-role="header">
 		<h1>Welcome!</h1>
-		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
+		<a href="logout.php" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
 
 	</div><!-- /header -->
 
@@ -58,7 +58,8 @@ if(file_exists("./formatting/header.php")){
 		 	echo "<form action=\"mainPage.php\" method=\"post\"><input type=\"submit\" value=\"Join the Hungry!\"/></form>";
 		 	
 		} else {
-			echo "<p> sorry doofis we had an oopsie</p>";
+			
+			echo "<p> GOSH! Login like a normal person! Like seriously. </p> <form id=\"loginAgain\" action=\"login.php\" method=\"post\"><input type=\"submit\" value=\"Log in again!\"/></form>";
 		}
 			
 
@@ -68,11 +69,12 @@ if(file_exists("./formatting/header.php")){
 	
 	
 	<script type="text/javascript">
-		/*$("#logout").click(function() {
-			localStorage.removeItem('username');
-			$("#form").show();
-			$("#logout").hide();
-		});*/
+		$("#logout").click(function() {
+			window.location = "logout.php";
+		});
+		$("#loginAgain").submit(function() {
+			window.location = "login.php";
+		});
 	</script>
 </div><!-- /page -->
 

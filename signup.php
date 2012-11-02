@@ -13,6 +13,7 @@ if(file_exists("./formatting/header.php")){
 
 $(document).ready(function()
 {
+	
 	$("#signup_form").submit(function()
 	{
 		//remove all the class add the messagebox classes and start fading
@@ -47,10 +48,10 @@ $(document).ready(function()
  		return false; //not to post the  form physically
 	});
 	//now call the ajax also focus move from 
-	/*$("#passwordconfirm").blur(function()
+	$("#passwordconfirm").blur(function()
 	{
 		$("#signup_form").trigger('submit');
-	});*/
+	});
 });
 </script>
 <style type="text/css">
@@ -86,7 +87,7 @@ margin-top: 10px;
 
 	<div data-role="header">
 	<h1>Log in</h1>
-	<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
+	<!--<a href="logout.php" data-icon="check" id="logout" class="ui-btn-right">Logout</a>-->
 
 	</div><!-- /header -->
 
@@ -102,7 +103,7 @@ margin-top: 10px;
 	<div id="info">
 	<span id="msgbox" style="display:none"></span>
 	</div>	
-    <input type="submit" id="submit" value="Sign Up">
+    <input type="submit" id="submitting" value="Sign Up">
 	</form>
 	<div data-role="fieldcontain">
 		
@@ -116,7 +117,7 @@ margin-top: 10px;
 		<?php include("footer_menu.php") ?>
 	-->
 	
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 	$("#logout").hide();
 	$("#info").hide();
 	var retrievedObject = localStorage.getItem('username');
@@ -131,7 +132,7 @@ margin-top: 10px;
 		$("#logout").hide();
 		$("#info").hide();
 	});
-	</script>
+	</script>-->
 </div><!-- /page -->
 
 </body>

@@ -39,14 +39,19 @@ session_start();
 			if(file_exists("./formatting/locationEntry.php")){
 				include "./formatting/locationEntry.php";
 			}
-			?> 
-     <table>
-		<tr class="long_tiny">
-	      <td>
-	        <input type="checkbox" id="long_tiny" />
-	      </td>
-	    </tr>
-    </table>
+			?>
+			
+			
+			
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+				<fieldset data-role="controlgroup" data-type="horizontal" class="ui-corner-all ui-controlgroup ui-controlgroup-horizontal">
+					<div class="ui-controlgroup-controls">
+						<div class="ui-radio"><input type="radio" name="radio-view" id="radio-view-a" value="list" checked=true><label for="radio-view-a" data-theme="c" class="ui-btn ui-corner-left ui-radio-off ui-btn-up-c"><span class="ui-btn-text">Open</span></label></div>
+						<div class="ui-radio"><input type="radio" name="radio-view" id="radio-view-b" value="grid"><label for="radio-view-b" data-theme="c" class="ui-btn ui-btn-up-c ui-radio-off"><span class="ui-btn-inxner"><span class="ui-btn-text">By Invitation Only</span></label></div>
+						<div class="ui-radio"><input type="radio" name="radio-view" id="radio-view-c" value="gallery"><label for="radio-view-c" data-theme="c" class="ui-btn ui-btn-up-c ui-radio-off"><span class="ui-btn-text">Closed</span></label></div>
+					</div>
+				</fieldset>
+			</div>
 			
 			<?php
 			if(file_exists("./formatting/startTimeInput.php")){
