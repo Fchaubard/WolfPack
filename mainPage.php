@@ -3,6 +3,7 @@ if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
 
+session_start();
 ?> 
 
 <body> 
@@ -20,7 +21,7 @@ if(file_exists("./formatting/header.php")){
 		
 		
 			<?php
-			echo "<p>Hey <strong></strong>. You're a wolf.. but you have no Wolf Pack!</p>";
+			echo "<p>Hey <strong>".$_SESSION['userName']."</strong>. You're a wolf.. but you have no Wolf Pack!</p>";
 			?>
 			
 			<?php
@@ -28,6 +29,11 @@ if(file_exists("./formatting/header.php")){
 				include "./formatting/availablePeopleList.php";
 			}
 			?> 
+			
+			<?php
+			echo "<form action=\"mainPage.php\" method=\"post\"><input type=\"submit\" value=\"Refresh!\"/></form>";
+			?>
+			
 			<?php
 			if(file_exists("./formatting/openGroupsList.php")){
 				include "./formatting/openGroupsList.php";

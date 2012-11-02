@@ -1,4 +1,5 @@
-<?php
+<?php session_start();
+
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
@@ -17,6 +18,7 @@ if(file_exists("./formatting/header.php")){
 	<div data-role="content">	
 		
 		<?php
+		/*
 			$name = 0;
 			include("config.php");
 			$un_name = $_POST["username"];
@@ -29,11 +31,12 @@ if(file_exists("./formatting/header.php")){
 				$lastName = $row["lastName"];
 			}
 				
+				*/
 						?>
 		
 		<?php
 		// This is a hack. You should connect to a database here.
-		if ($name==1) {
+		if (isset($_SESSION['userName'])) {
 			?>
 			<script type="text/javascript">
 				// Save the username in local storage. That way you
@@ -41,7 +44,7 @@ if(file_exists("./formatting/header.php")){
 				localStorage.setItem('username', '<?=$_POST["username"]?>');
 			</script>
 			<?php
-			echo "<p>Welcome <strong>".$firstName."</strong>!</p>";
+			echo "<p>Welcome <strong>".$_SESSION['userName']."</strong>!</p>";
 			?>
 			
 			<?php
@@ -55,7 +58,7 @@ if(file_exists("./formatting/header.php")){
 		 	echo "<form action=\"mainPage.php\" method=\"post\"><input type=\"submit\" value=\"Join the Hungry!\"/></form>";
 		 	
 		} else {
-			echo "<p>There seems to have been an error.</p>";
+			echo "<p> sorry doofis we had an oopsie</p>";
 		}
 			
 
@@ -65,11 +68,11 @@ if(file_exists("./formatting/header.php")){
 	
 	
 	<script type="text/javascript">
-		$("#logout").click(function() {
+		/*$("#logout").click(function() {
 			localStorage.removeItem('username');
 			$("#form").show();
 			$("#logout").hide();
-		});
+		});*/
 	</script>
 </div><!-- /page -->
 

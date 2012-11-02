@@ -3,7 +3,7 @@ if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
 
-
+session_start();
   
 
 ?> 
@@ -31,8 +31,8 @@ if(file_exists("./formatting/header.php")){
 	<div data-role="content">	
 	
 			<?php
-			if(file_exists("./formatting/availablePeopleList.php")){
-				include "./formatting/availablePeopleList.php";
+			if(file_exists("./formatting/availablePeopleSelect.php")){
+				include "./formatting/availablePeopleSelect.php";
 			}
 			?> 
 			<?php
