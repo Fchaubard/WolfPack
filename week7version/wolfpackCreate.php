@@ -52,7 +52,7 @@ if(file_exists("./formatting/header.php")){
 			<?php
 			if(file_exists("./formatting/availablePeopleSelect.php")){
 				include "./formatting/availablePeopleSelect.php";
-			echo "Button Count: ".$button_count;
+			//echo "Button Count: ".$button_count;
 			echo "<input type=\"hidden\" value=\"".$button_count."\" name=\"buttonCount\">";
 			}
 			?>

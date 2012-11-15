@@ -38,14 +38,29 @@ if(mysql_num_rows($result)>0)
 	if(strcmp($row['password'],$pass)==0)
 	{
 		echo "yes";
-		//now set the session from here if needed
+		
 		$_SESSION['userName']=$user_name; 
+		$_SESSION['groupNumber']=$row['groupNumber'];
+		//now set the session from here if needed
+		if($_SESSION['groupNumber']!=0){
+			$sql="UPDATE users SET hungry='1' WHERE userName LIKE '$user_name'";
+			$result=mysql_query($sql);
+			echo "1";
+		}else{
+			$_SESSION['groupNumber']=0;
+			echo "2";
+		}
+			
+		
 	}
-	else
+	else{
+		
 		echo "no"; 
+	}
 }
-else
+else{
 	echo "no"; //Invalid Login
+}
 
 
 ?>

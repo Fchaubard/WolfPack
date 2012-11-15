@@ -1,4 +1,8 @@
 <?php session_start();
+if (!isset($_SESSION['userName'])) {
+			
+			header('Location: http://stanford.edu/~rerich/cgi-bin/CS147/login.php');
+}
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
@@ -10,14 +14,24 @@ if(file_exists("./formatting/header.php")){
 
 	<div data-role="header">
 		<h1>So You're Hungry? <img src="images/logo_icon_invert.png" height="14px"/></h1>
-		<a href="#" data-icon="check" id="logout" data-transition="slide" data-direction="reverse" data-role="button" class="ui-btn-right logout">Logout</a>
+		<?php 
+		
+			if(file_exists("./formatting/logout.php")){
+				include "./formatting/logout.php";
+			}
+		
+		?> 
 		<a href="#" data-rel="back" data-icon="arrow-l" id="back" data-transition="slide"  data-direction="reverse" data-role="button" class="ui-btn-left">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
 		 <script type="text/javascript">
-        $("#test").click(function() {
+		 	$(".logingout").click(function() {
 				
+				document.location = "login.php";
+			});
+			
+			$("#test").click(function() {			
 				var mylist = $('#friendsList');
 				var listitems = mylist.children('li').get();
 				
@@ -26,16 +40,9 @@ if(file_exists("./formatting/header.php")){
 				})
 				$.each(listitems, function(idx, itm) { mylist.append(itm); });
 			});
-        </script>
-		<?php
-		
-		// This is a hack. You should connect to a database here.
-		if (!isset($_SESSION['userName'])) {
-			
-			echo "<p> GOSH! Login like a normal person! Like seriously. </p> <a href=\"#\" class=\"logout\" class=\"roll-link\">login</a>";
-		}
-		else{
-			
+		</script>
+		<?php 
+
 			
 		$task = $_POST["task"];
 		if($task=="leave"){
@@ -59,7 +66,7 @@ if(file_exists("./formatting/header.php")){
 			echo "<p>Hey <strong>".$_SESSION['userName']."</strong>. You're a wolf.. but you have no Wolf Pack!</p>";
 			?>
 			<h2>Hungry Friends:</h2>
-			<input type="button" id="test" value="Sort List (click again to reverse)"/>
+			<!--<input type="button" id="test" value="Sort List (click again to reverse)"/>-->
 			<br/>
 			<?php
 			if(file_exists("./formatting/availablePeopleList.php")){
@@ -68,7 +75,8 @@ if(file_exists("./formatting/header.php")){
 			?> 
 			
 			<?php
-			echo "<br /><form action=\"mainPage.php\" method=\"post\"><input type=\"submit\" value=\"Refresh!\"/></form>";
+			echo "<!--<br /><form action=\"mainPage.php\" method=\"post\"><input type=\"submit\" value=\"Refresh!\"/></form>-->";
+			echo "<br /><form action=\"editFriends.php\" method=\"post\"><input type=\"submit\" value=\"Add / Remove Friends\"/></form>";
 			?>
 			
 			<?php
@@ -83,21 +91,16 @@ if(file_exists("./formatting/header.php")){
 		 	?>
 		 	
 		 	
-	<script type="text/javascript">
-		$(".logout").click(function() {
-			document.location = "login.php";
-		});
-		$("#logout").click(function() {
-			document.location = "login.php";
-		});
-	</script>
-		<?php
-		}//close if else
-	?>
+		
+	
 	</div><!-- /content -->
-
+	<?php
+		if(file_exists("./formatting/footer.php"))
+		{
+			include "./formatting/footer.php";
+		}
+	?>
 	
 </div><!-- /page -->
-
 </body>
 </html>

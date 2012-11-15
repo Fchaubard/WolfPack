@@ -11,12 +11,12 @@
 		    //create an object, passing it the name and location of the server side script
 		    var eSource = new EventSource(eventURL);
 		    //detect message receipt
-		    eSource.onmessage = function(event)
+		    eSource.addEventListener('groupFriends', function(event)
 		    {
 			//write the received data to the page
 			document.getElementById("groupFriends").innerHTML = event.data;
 			$( "#groupFriends" ).collapsibleset( "refresh" );
-		    };
+		    });
 		}
 		else
 		{

@@ -1,2 +1,2 @@
-<h2>Group Name:</h2>
+<h2>Wolfpack Name:</h2>
 <input type="text" name="groupName"><br>

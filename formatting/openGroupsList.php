@@ -1,4 +1,4 @@
-<h2>Friends' Open Groups:</h2>
+<h2>Friends' Open Wolfpacks:</h2>
 <p></p>
 
 			<?php

@@ -34,26 +34,26 @@ if(file_exists("./formatting/header.php")){
 	}
 	if($task=="create"){
 		$gn=$_POST["groupName"];
-		echo "Group Name: ".$_POST["groupName"];
-				echo "<br>";
+		//echo "Group Name: ".$_POST["groupName"];
+		//		echo "<br>";
 		$buttonCount = $_POST["buttonCount"];
-		echo $buttonCount;
-		echo "Button Count: ".$buttonCount;
+		//echo $buttonCount;
+		//echo "Button Count: ".$buttonCount;
 				echo "<br>";
-		echo "Friends Selected:";
-		echo "<br>";
+		//echo "Friends Selected:";
+		//echo "<br>";
 		for($i=1;$i<=$buttonCount;$i++){
 			$name = $_POST["name-".$i];
 			$value = $_POST["checkbox-".$i];
 			if($value=="on"){
-				echo "Name: ".$name;
-				echo "<br>";
+				//echo "Name: ".$name;
+				//echo "<br>";
 			}
 		}
-				echo "<br>";
+				//echo "<br>";
 		$loc = $_POST["location"];
-		echo "Location: ".$_POST["location"];
-				echo "<br>";
+		//echo "Location: ".$_POST["location"];
+		//		echo "<br>";
 		$privacy = 0;
 		$input = $_POST["radio-view"];
 		if($input=="invite"){
@@ -62,12 +62,12 @@ if(file_exists("./formatting/header.php")){
 		if($input=="open"){
 			$privacy = 2;
 		}
-		echo "O/BIO/C: ";
-				echo "<br>";
-				echo $_POST["radio-view"];
-				echo "<br>";
+		//echo "O/BIO/C: ";
+		//		echo "<br>";
+	//			echo $_POST["radio-view"];
+//				echo "<br>";
 		$time = $_POST["startTime"];
-		echo "Start Time: ".$_POST["startTime"];
+//		echo "Start Time: ".$_POST["startTime"];
 		
 		//Create the new group:
 		include("config.php");

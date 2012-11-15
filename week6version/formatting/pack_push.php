@@ -25,7 +25,7 @@
                         }
                         $icon = "./images/".$icon2;
                         $one = "<div data-role=\"collapsible\" data-collapsed=\"true\">";
-                        $two =  "<h3><img src=\"".$icon."\" height=\"60\" width=\"60\"> ".$row["userName"]."</h3>";
+                        $two =  "<h3><img src=\"".$icon."\" height=\"50px\" width=\"50px\"> ".$row["userName"]."</h3>";
                         
                         $startTime = $row["startTime"];
 						$timeOfDay = "AM";

@@ -1,5 +1,8 @@
 <?php session_start();
-
+if (!isset($_SESSION['userName'])) {
+			
+			header('Location: http://stanford.edu/~rerich/cgi-bin/CS147/login.php');
+}
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
@@ -10,8 +13,13 @@ if(file_exists("./formatting/header.php")){
 
 	<div data-role="header">
 		<h1>Welcome!</h1>
-		<a href="#" data-icon="check" id="logout" data-transition="slide" data-direction="reverse" data-role="button" class="ui-btn-right">Logout</a>
-
+		<?php 
+		
+			if(file_exists("./formatting/logout.php")){
+				include "./formatting/logout.php";
+			}
+		
+		?> 
 	</div><!-- /header -->
 
 	<div data-role="content">	
@@ -28,33 +36,9 @@ if(file_exists("./formatting/header.php")){
 			}
 		?>
 		
-		<?php
-		/*
-			$name = 0;
-			include("config.php");
-			$un_name = $_POST["username"];
-			$query = "SELECT * FROM users WHERE userName LIKE '$un_name'";
-			$result = mysql_query($query)or die(mysql_error());
-			$row = mysql_fetch_array($result);
-			if($row["password"] == $_POST["password"]){
-				$name=1;
-				$firstName = $row["firstName"];
-				$lastName = $row["lastName"];
-			}
-				
-				*/
-						?>
 		
-		<?php
-		// This is a hack. You should connect to a database here.
-		if (!isset($_SESSION['userName'])) {
-			
-			echo "<p> GOSH! Login like a normal person! Like seriously. </p> <a href=\"#\" class=\"logout\" class=\"roll-link\">login</a>";
-		}
-		else{
-			
-			?>
-			<script type="text/javascript">
+	
+			<script type="text/javascript"> //this isn't doing ANYTHING!!!
 				// Save the username in local storage. That way you
 				// can access it later even if the user closes the app.
 				localStorage.setItem('username', '<?=$_POST["username"]?>');
@@ -75,7 +59,7 @@ if(file_exists("./formatting/header.php")){
 			<?php
 		 	echo "<input type=\"hidden\" value=\"justHungry\" name=\"task\"><input type=\"submit\" value=\"Join the Hungry!\"/></form>";
 		 	
-		}  
+		 
 			
 
 		?>
@@ -83,14 +67,6 @@ if(file_exists("./formatting/header.php")){
 
 	
 	
-	<script type="text/javascript">
-		$(".logout").click(function() {
-			document.location = "login.php";
-		});
-		$("#logout").click(function() {
-			document.location = "login.php";
-		});
-	</script>
 </div><!-- /page -->
 
 </body>

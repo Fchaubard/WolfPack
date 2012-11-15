@@ -10,6 +10,7 @@ if(file_exists("./formatting/header.php")){
 
 ?> 
 <style type="text/css">
+
 h1 {color: white}
 .buttondiv {
 margin-top: 10px;
@@ -58,16 +59,22 @@ $(document).ready(function()
 		//check the username exists or not from ajax
 		$.post("ajax_login.php",{ username:$('#username').val(),password:$('#password').val(),rand:Math.random() } ,function(data)
         {
-		  if(data=='yes') //if correct login detail
+		  if(data=='yes1' || data=='yes2') //if correct login detail
 		  {
+		  	
 		  	$("#msgbox").fadeTo(200,0.1,function()  //start fading the messagebox
 			{ 
 			  //add message and change the class of the box and start fading
 			  $(this).html('Logging in.....').addClass('messageboxok').fadeTo(900,1,
               function()
 			  { 
-			  	 //redirect to secure page
-				 document.location='iAmHungryPage.php';
+			  	
+			  	if(data=='yes1'){
+			  		document.location='wolfpackSummary.php';
+			  	}else{
+			  	
+				 	document.location='iAmHungryPage.php'; //need to modify this to transition correctly if already hungry...
+			  	}
 				 //$.mobile.changePage( "iAmHungryPage.php", {
 				//					    type: "post",
 				//					    data: $("form#login_form1").serialize()
@@ -105,7 +112,6 @@ $(document).ready(function()
 	<!--<center><!--<img width=100% src="images/fbicon.png"></center>-->
 	<center><img src="images/logo_welcome.png" width=100%></center>
 	<form action="" method="post" class="login_form" id="login_form1">
-	
 	<label for="foo">Username:</label>
 	<input type="text" name="username" id="username">
 	<label for="bar">Password:</label>

@@ -10,8 +10,8 @@
 
 	<link rel="stylesheet" href="jquery/jquery.mobile-1.2.0.css" />
 	<link rel="stylesheet" href="formatting/style.css" />
-	<link rel="apple-touch-icon" href="images/appicon.png" />
-	<link rel="apple-touch-startup-image" href="images/startup.png">
+	<link rel="apple-touch-icon" href="images/wolfPackBackground.jpg" />
+	<link rel="apple-touch-startup-image" href="images/fullBackground2.png"/>
 	
 	<script src="jquery/jquery-1.8.2.min.js"></script>
 	<script src="jquery/jquery.mobile-1.2.0.js"></script>

@@ -53,7 +53,7 @@ if(file_exists("./formatting/header.php")){
 			//echo "Stop: ".$stop;
 			//echo "USER NAME: ".$_SESSION['userName'];
 			$queryString = "UPDATE users SET startTime=\"".$start."\", endTime=\"".$stop."\", hungry=\"1\" WHERE userName=\"".$_SESSION['userName']."\"";
-			echo $queryString;
+			//echo $queryString;
 			$result = mysql_query($queryString)or die(mysql_error());
 		}
 			echo "<p>Hey <strong>".$_SESSION['userName']."</strong>. You're a wolf.. but you have no Wolf Pack!</p>";

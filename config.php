@@ -1,4 +1,8 @@
 <?php
-$link = mysql_connect('mysql-user-master.stanford.edu', 'ccs147rerich', 'dahdiedi');
-mysql_select_db('c_cs147_rerich');
+$sqlAddress = 'mysql-user-master.stanford.edu';
+$sqlUser = 'ccs147rerich';
+$sqlPass = 'dahdiedi';
+$sqlDb = 'c_cs147_rerich';
+$link = mysql_connect($sqlAddress, $sqlUser, $sqlPass);
+mysql_select_db($sqlDb);
 ?>
