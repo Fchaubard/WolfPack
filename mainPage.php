@@ -55,12 +55,9 @@ if(file_exists("./formatting/header.php")){
 		if($task=="justHungry"){
 			include("config.php");
 			$start = $_POST["startTime"];
-			//echo "Start: ".$start;
 			$stop = $_POST["stopTime"];
-			//echo "Stop: ".$stop;
-			//echo "USER NAME: ".$_SESSION['userName'];
 			$queryString = "UPDATE users SET startTime=\"".$start."\", endTime=\"".$stop."\", hungry=\"1\" WHERE userName=\"".$_SESSION['userName']."\"";
-			echo $queryString;
+			//echo $queryString;
 			$result = mysql_query($queryString)or die(mysql_error());
 		}
 			echo "<p>Hey <strong>".$_SESSION['userName']."</strong>. You're a wolf.. but you have no Wolf Pack!</p>";
@@ -75,8 +72,8 @@ if(file_exists("./formatting/header.php")){
 			?> 
 			
 			<?php
-			echo "<!--<br /><form action=\"mainPage.php\" method=\"post\"><input type=\"submit\" value=\"Refresh!\"/></form>-->";
-			echo "<br /><form action=\"editFriends.php\" method=\"post\"><input type=\"submit\" value=\"Add / Remove Friends\"/></form>";
+			echo "<!--<br /><form action=\"mainPage.php\" method=\"post\"><input type=\"submit\" onclick=\"eSource.close();\" value=\"Refresh!\"/></form>-->";
+			echo "<br /><form action=\"editFriends.php\" method=\"post\"><input type=\"submit\" onclick=\"eSource.close();\" value=\"Add / Remove Friends\"/></form>";
 			?>
 			
 			<?php
@@ -86,8 +83,8 @@ if(file_exists("./formatting/header.php")){
 			?> 
 			
 			<?php
-			echo "<form action=\"wolfpackCreate.php\" method=\"post\"><input type=\"submit\" value=\"Start a Wolfpack!\"/></form>";
-		 	echo "<form action=\"iAmHungryPage.php\" method=\"post\"><input type=\"hidden\" value=\"notHungry\" name=\"task\"><input type=\"submit\" value=\"I'm Not Hungry Anymore!\"/></form>";
+			echo "<form action=\"wolfpackCreate.php\" method=\"post\"><input type=\"submit\" onclick=\"eSource.close();\" value=\"Start a Wolfpack!\"/></form>";
+		 	echo "<form action=\"iAmHungryPage.php\" method=\"post\"><input type=\"hidden\" value=\"notHungry\" name=\"task\"><input type=\"submit\" onclick=\"eSource.close();\" value=\"I'm Not Hungry Anymore!\"/></form>";
 		 	?>
 		 	
 		 	
@@ -98,6 +95,10 @@ if(file_exists("./formatting/header.php")){
 		if(file_exists("./formatting/footer.php"))
 		{
 			include "./formatting/footer.php";
+		}
+		if(file_exists("./formatting/thebestcode.php"))
+		{
+			include "./formatting/thebestcode.php";
 		}
 	?>
 	

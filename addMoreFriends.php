@@ -37,28 +37,67 @@ if(file_exists("./formatting/header.php")){
 	<div data-role="content">	
 	
 			
-
+	<form action="wolfpackSummary.php" method="post">
 			
-			<?php
-			$bc=0;
-			if(file_exists("./formatting/availablePeopleSelect.php")){
-				include "./formatting/availablePeopleSelect.php";
-				$bc=$button_count;
-				echo "Button Count: ".$bc;
-			}
-			?>
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+<h2>Select Available Friends to Join Your Group:</h2>
+				<fieldset data-role="controlgroup">
+
+			 	
+			 	
+			 	<?php
+			 		
+					include("config.php");
+					$query = "SELECT * FROM friends WHERE user=\"".$_SESSION['userName']."\"";
+					$result = mysql_query($query)or die(mysql_error());
+					$button_count = 0;
+					while($row = mysql_fetch_array($result))
+					{
+								
+						$query2 = "SELECT * FROM users WHERE userName=\"".$row["friend"]."\" AND groupNumber=0 AND hungry=1";
+						$result2 = mysql_query($query2)or die(mysql_error());
+						while($row2 = mysql_fetch_array($result2)){
+							$button_count++;
+							if($row2["usericon"] == "")
+							{
+								$icon2 = "obama.jpeg";
+							}
+							else
+							{
+								$icon2 = $row2["usericon"];
+							}
+							$icon = "./images/".$icon2;
+							if(strcmp($row2['userName'],$_GET['friend'])==0){
+								echo "<input type=\"checkbox\" name=\"checkbox-".$button_count."\" id=\"checkbox-".$button_count."\" class=\"custom\" checked=\"checked\"/>";
+							}else{
+								echo "<input type=\"checkbox\" name=\"checkbox-".$button_count."\" id=\"checkbox-".$button_count."\" class=\"custom\"/>";
+							}	
+							echo "<input type=\"hidden\" name=\"name-".$button_count."\" value=\"".$row2["userName"]."\">";
+    				echo "<label for=\"checkbox-".$button_count."\">".$row2["userName"]."</label>";	
+						}
+					}
+					
+					?>
+				</fieldset>
+			</div>
 			
 			
 			
 			<?php
 			echo "<br>";
+			$bc = $button_count;
 			echo "Button Count pass, okay? ".$bc;
-			echo "<form action=\"wolfpackSummary.php\" method=\"post\"><input type=\"hidden\" value=\"".$bc."\" name=\"buttonCount\"><input type=\"hidden\" value=\"banana\" name=\"task\"><input type=\"submit\" value=\"Send Invitations to Join the Pack!\"/></form>";
+			echo "<input type=\"hidden\" value=\"".$bc."\" name=\"buttonCount\"><input type=\"hidden\" value=\"banana\" name=\"task\"><input type=\"submit\" value=\"Send Invitations to Join the Pack!\"/></form>";
 			?>
 
 			</div><!-- /content -->
 
-	
+		<?php
+		if(file_exists("./formatting/footer.php"))
+		{
+			include "./formatting/footer.php";
+		}
+	?>
 	
 	
 </div><!-- /page -->

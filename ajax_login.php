@@ -42,7 +42,7 @@ if(mysql_num_rows($result)>0)
 		$_SESSION['userName']=$user_name; 
 		$_SESSION['groupNumber']=$row['groupNumber'];
 		//now set the session from here if needed
-		if($_SESSION['groupNumber']!=0){
+		if($_SESSION['groupNumber']!=0 && $row['status']!=2){
 			$sql="UPDATE users SET hungry='1' WHERE userName LIKE '$user_name'";
 			$result=mysql_query($sql);
 			echo "1";

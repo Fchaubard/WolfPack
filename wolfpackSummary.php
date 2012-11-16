@@ -43,10 +43,16 @@ if(file_exists("./formatting/header.php")){
 		if($task=="join"){ //Joining an existing open group:
 			//$groupId = $_POST["groupId"];
 			
-			
+			try{
 			$queryString = "UPDATE users SET groupNumber=".$groupId.", status=1 WHERE userName=\"".$_SESSION['userName']."\"";
-			$query = $queryString;
-			$result = mysql_query($query)or die(mysql_error());
+			$result = mysql_query($queryString)or die(mysql_error());
+			}catch(Exception $e){
+				echo 'Message: ' .$e->getMessage();
+			}
+		}
+		if($task=="acceptInvitation"){
+			$queryString = "UPDATE users SET groupNumber=".$groupId.", status=1 WHERE userName=\"".$_SESSION['userName']."\"";
+			$result = mysql_query($queryString)or die(mysql_error());			
 		}
 		if($task=="create"){ //Creating a new group:
 			$gn=$_POST["groupName"];
@@ -93,25 +99,30 @@ if(file_exists("./formatting/header.php")){
 		 	while($row = mysql_fetch_array($result)){
         		$groupId = $row['groupNumber'];
     		}
-    		echo "Group Id: ".$groupId;
-    		echo "<br>";
+    		//echo "Group Id: ".$groupId;
+    		//echo "<br>";
 			$buttonCount = $_POST["buttonCount"];
-    		echo "Button Count: ".$buttonCount;
-    		echo "<br>";
+    		//echo "Button Count: ".$buttonCount;
+    		//echo "<br>";
     		for($i=1;$i<=$buttonCount;$i++){
-    			echo "Here we are again…";
-    			echo "<br>";
-    			echo "Value: ".$value;
-    			echo "<br>";
+    			//echo "Here we are again…";
+    			//echo "<br>";
+    			//echo "Value: ".$value;
+    			//echo "<br>";
 				$name = $_POST["name-".$i];
+				//echo "Name: ".$name;
+				//echo "<br>";
 				$value = $_POST["checkbox-".$i];
+				//echo "Value: ".$value;
+				//echo "<br>";
 				if($value=="on"){
 					$friendGroupQuery = "UPDATE users SET groupNumber=".$groupId.", status=2 WHERE userName=\"".$name."\"";
-					echo "Friend Group Query: ".$friendGroupQuery;
-					echo "<br>";
+					//echo "Friend Group Query: ".$friendGroupQuery;
+					//echo "<br>";
 					$result = mysql_query($friendGroupQuery)or die(mysql_error());
                     
 				}
+				
 			}
     		
 		}
@@ -132,9 +143,9 @@ if(file_exists("./formatting/header.php")){
     ?>
 
 <?php
-    echo "<form action=\"addMoreFriends.php\" method=\"post\"><input type=\"submit\" value=\"Invite More People!\"/></form>";
-    echo "<form action=\"mainPage.php\" method=\"post\"><input type=\"hidden\" value=\"leave\" name=\"task\"><input type=\"submit\" value=\"Leave Group!\"/></form>";
-    echo "<form action=\"iAmHungryPage.php\" method=\"post\"><input type=\"hidden\" value=\"notHungry\" name=\"task\"><input type=\"submit\" value=\"I'm Not Hungry Anymore!\"/></form>";
+    echo "<form action=\"addMoreFriends.php\" method=\"post\"><input type=\"submit\" onclick=\"eSource2.close();\" value=\"Invite More People!\"/></form>";
+    echo "<form action=\"mainPage.php\" method=\"post\"><input type=\"hidden\" value=\"leave\" name=\"task\"><input type=\"submit\" onclick=\"eSource2.close();\" value=\"Leave Group!\"/></form>";
+    echo "<form action=\"iAmHungryPage.php\" method=\"post\"><input type=\"hidden\" value=\"notHungry\" name=\"task\"><input type=\"submit\" onclick=\"eSource2.close();\" value=\"I'm Not Hungry Anymore!\"/></form>";
     ?>
 <script type="text/javascript">
 
@@ -149,7 +160,12 @@ $("#logout").click(function() {
 
 </div><!-- /content -->
 
-
+	<?php
+		if(file_exists("./formatting/footer.php"))
+		{
+			include "./formatting/footer.php";
+		}
+	?>
 
 
 </div><!-- /page -->

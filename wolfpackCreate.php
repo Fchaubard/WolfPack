@@ -28,7 +28,33 @@ if(file_exists("./formatting/header.php")){
 
 	<div data-role="content">	
 		<script type="text/javascript">
-		//$( document ).bind( 'pageshow', function( event ){
+			$( document ).live( 'pageshow', function( event ){
+				$(".group1").click(function() {
+					$("#msgbox").text('This group is open for the public to join.').fadeIn(1000).fadeTo(1000,1);	
+				});
+				$(".group2").click(function() {
+					$("#msgbox").text('Your invited friends can also invite others.').fadeIn(1000).fadeTo(1000,0.75);	
+				});
+				$(".group3").click(function() {
+					$("#msgbox").text('Only you can invite more people.').fadeIn(1000).fadeTo(1000,0.5);	
+				});
+			});
+			$('.group1').live('click',function(){
+				
+					$("#msgbox").text('This group is open for the public to join.').fadeIn(1000).fadeTo(1000,1);
+			
+			});
+			$('.group2').live('click',function(){
+				
+					$("#msgbox").text('Your invited friends can also invite others.').fadeIn(1000).fadeTo(1000,0.75);
+			
+			});
+			$('.group3').live('click',function(){
+				
+					$("#msgbox").text('Only you can invite more people.').fadeIn(1000).fadeTo(1000,0.5);
+			
+			});	
+			
 			$(".logingout").click(function() {
 				
 				document.location = "login.php";
@@ -64,7 +90,7 @@ if(file_exists("./formatting/header.php")){
 			<?php
 			if(file_exists("./formatting/availablePeopleSelect.php")){
 				include "./formatting/availablePeopleSelect.php";
-			echo "Button Count: ".$button_count;
+			//echo "Button Count: ".$button_count;
 			echo "<input type=\"hidden\" value=\"".$button_count."\" name=\"buttonCount\">";
 			}
 			?>
@@ -99,7 +125,12 @@ if(file_exists("./formatting/header.php")){
 
 			</div><!-- /content -->
 
-	
+		<?php
+		if(file_exists("./formatting/footer.php"))
+		{
+			include "./formatting/footer.php";
+		}
+	?>
 	
 	
 </div><!-- /page -->

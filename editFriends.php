@@ -34,7 +34,12 @@ if(file_exists("./formatting/header.php")){
 	</div><!-- /content -->
 
 
-
+	<?php
+		if(file_exists("./formatting/footer.php"))
+		{
+			include "./formatting/footer.php";
+		}
+	?>
 
 	
 

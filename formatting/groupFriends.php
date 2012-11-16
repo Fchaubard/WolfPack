@@ -1,25 +1,25 @@
-<div data-role="collapsible-set" id="groupFriends">
+<div data-role="collapsible-set" id="groupFriends" class="groupFriends">
 </div>
 <script type="text/javascript">
-		document.getElementById("groupFriends").innerHTML = "Hello World!";
-		var groupId = <?php echo $groupId ?>;
-		var eventURL = "./formatting/pack_push.php?group="+groupId;
-		console.log(eventURL);
+		$(".groupFriends").html("Hello World!");
+		var groupId2 = <?php echo $groupId ?>;
+		var eventURL2 = "./formatting/pack_push.php?group="+groupId2;
+		//console.log(eventURL);
 		//functions here
 		if(typeof(EventSource)!=="undefined")
 		{
 		    //create an object, passing it the name and location of the server side script
-		    var eSource = new EventSource(eventURL);
+		    var eSource2 = new EventSource(eventURL2);
 		    //detect message receipt
-		    eSource.addEventListener('groupFriends', function(event)
+		    eSource2.addEventListener('groupFriends', function(event)
 		    {
 			//write the received data to the page
-			document.getElementById("groupFriends").innerHTML = event.data;
-			$( "#groupFriends" ).collapsibleset( "refresh" );
+			$(".groupFriends").html(event.data);
+			$(".groupFriends" ).collapsibleset( "refresh" );
 		    });
 		}
 		else
 		{
-		    document.getElementById("groupFriends").innerHTML="Whoops! Your browser doesn't receive server-sent events.";
+		    $(".groupFriends").html("Whoops! Your browser doesn't receive server-sent events.");
 		}
 </script>

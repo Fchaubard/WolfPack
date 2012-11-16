@@ -13,7 +13,7 @@
 					while($row = mysql_fetch_array($result))
 					{
 								
-						$query2 = "SELECT * FROM users WHERE userName=\"".$row["friend"]."\" AND groupNumber=0";
+						$query2 = "SELECT * FROM users WHERE userName=\"".$row["friend"]."\" AND groupNumber=0 AND hungry=1";
 						$result2 = mysql_query($query2)or die(mysql_error());
 						while($row2 = mysql_fetch_array($result2)){
 							$button_count++;

@@ -6,8 +6,11 @@
     $groupId = $_GET["group"];
     $oldResultString = "";
     include("../config.php");
+    mysql_close($link);
     while(true)
     {
+        $link = mysql_connect($sqlAddress, $sqlUser, $sqlPass);
+        mysql_select_db($sqlDb);
         $resultString = "";
         $count =0;
         $query = "SELECT * FROM users WHERE groupNumber=\"".$groupId."\"";
@@ -82,6 +85,7 @@
             flush();
             $oldResultString = $resultString;
         }
+        mysql_close($link);
         sleep(3);
     }
     

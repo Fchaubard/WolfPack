@@ -29,7 +29,7 @@ if(file_exists("./formatting/times.php")){
 		}
 		else
 		{
-			var stopTime = startTime + 100;
+			var stopTime = startValue + 100;
 		}
 		for(var i = startValue + 100; i <= 2400; i = i+100)
 		{

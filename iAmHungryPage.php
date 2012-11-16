@@ -30,7 +30,7 @@ if(file_exists("./formatting/header.php")){
 			if($task=="notHungry"){
 				include("config.php");
 				$query = "UPDATE users SET hungry=\"0\", groupNumber=\"0\", status=\"0\" WHERE userName=\"".$_SESSION['userName']."\"";
-				echo $query;
+				//echo $query;
 				$result = mysql_query($query)or die(mysql_error());
 				
 			}
@@ -65,7 +65,12 @@ if(file_exists("./formatting/header.php")){
 		?>
 	</div><!-- /content -->
 
-	
+		<?php
+		if(file_exists("./formatting/footer.php"))
+		{
+			include "./formatting/footer.php";
+		}
+	?>
 	
 </div><!-- /page -->
 

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<script src="//cdn.optimizely.com/js/141814641.js"></script>
 	<title>Wolfpack!</title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,7 +20,7 @@
 	
 	 $(document).ready(function() {
   		// disable ajax nav
-		$.mobile.ajaxLinksEnabled = false;
+		//$.mobile.ajaxLinksEnabled = false;
 		$.mobile.pageLoadErrorMessage = 'Loadingg';
 		$.mobile.defaultPageTransition = "slide";
  		 
