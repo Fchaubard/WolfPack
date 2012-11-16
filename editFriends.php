@@ -1,7 +1,6 @@
 <?php session_start();
-if (!isset($_SESSION['userName'])) {
-			
-			header('Location: http://stanford.edu/~rerich/cgi-bin/CS147/login.php');
+if(file_exists("./formatting/redirect.php")){
+    include "./formatting/redirect.php";
 }
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";

@@ -3,7 +3,7 @@
 <script type="text/javascript">
 		$(".groupFriends").html("Hello World!");
 		var groupId2 = <?php echo $groupId ?>;
-		var eventURL2 = "./formatting/pack_push.php?group="+groupId2;
+		var eventURL2 = "./formatting/master_push.php?group="+groupId2;
 		//console.log(eventURL);
 		//functions here
 		if(typeof(EventSource)!=="undefined")

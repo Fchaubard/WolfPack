@@ -1,4 +1,7 @@
 <?php session_start();
+if(file_exists("./formatting/redirect.php")){
+    include "./formatting/redirect.php";
+}
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }

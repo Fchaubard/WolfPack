@@ -1,5 +1,5 @@
 <?php
-
+    //THIS FILE IS RETIRED. DO NOT. I REPEAT. DO NOT. UPDATE. IT. PLEASE LOOK AT MASTER_PUSH.PHP FOR THE CURRENT CODE.
     header('Content-Type: text/event-stream');
     header('Cache-Control: no-cache');
     
