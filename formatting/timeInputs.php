@@ -1,5 +1,5 @@
 
-<p>Start Time:</p>
+<p>Hungry From:</p>
 <select id="startTime" name="startTime">
 <?php
 if(file_exists("./formatting/times.php")){
@@ -10,7 +10,7 @@ if(file_exists("./formatting/times.php")){
 ?>
 </select>
 
-<p> Stop Time: </p>
+<p> Until: </p>
 <select id="stopTime" name="stopTime">
 <?php
 if(file_exists("./formatting/times.php")){

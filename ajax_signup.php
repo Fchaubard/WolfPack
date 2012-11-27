@@ -6,11 +6,9 @@
 //Connect to database from here
 
 
-
-
-$link = mysql_connect('mysql-user-master.stanford.edu', 'ccs147rerich', 'dahdiedi');
-mysql_select_db('c_cs147_rerich');
-
+if(file_exists("config.php")){
+				include("config.php");
+}
 
 //select the database | Change the name of database from here
 //mysql_select_db('db_ajax'); 

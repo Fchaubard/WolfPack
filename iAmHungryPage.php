@@ -5,6 +5,17 @@ if(file_exists("./formatting/redirect.php")){
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
+// Facebook Stuff
+require 'src/facebook.php';
+
+// Create our Application instance (replace this with your appId and secret).
+$facebook = new Facebook(array(
+  'appId'  => '210452582423240',
+  'secret' => 'e6c1416257d02ed499a5cdbdc31f4a13',
+));
+
+// Get User ID
+$uid = $facebook->getUser();
 
 ?> 
 <body> 
@@ -45,6 +56,9 @@ if(file_exists("./formatting/header.php")){
 			<?php
 			
 			echo "<p>Welcome <strong>".$_SESSION['userName']."</strong>!</p>";
+			if($uid>1){
+			echo "<img src=\"https://graph.facebook.com/".$uid."/picture\">";
+			}
 			echo "<form action=\"mainPage.php\" method=\"post\">";
 			?>
 			

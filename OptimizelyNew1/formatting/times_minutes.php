@@ -1,0 +1,24 @@
+<option value="15" >0:15 Minutes</option>
+<option value="30">0:30 Minutes</option>
+<option value="45">0:45 Minutes</option>
+<option value="100" selected=true>1:00 Hour</option>
+<option value="115">1:15 Hours</option>
+<option value="130">1:30 Hours</option>
+<option value="145">1:45 Hours</option>
+<option value="200">2:00 Hours</option>
+<option value="215">2:15 Hours</option>
+<option value="230">2:30 Hours</option>
+<option value="245">2:45 Hours</option>
+<option value="300">3:00 Hours</option>
+<option value="315">3:15 Hours</option>
+<option value="330">3:30 Hours</option>
+<option value="345">3:45 Hours</option>
+<option value="400">4:00 Hours</option>
+<option value="415">4:15 Hours</option>
+<option value="430">4:30 Hours</option>
+<option value="445">4:45 Hours</option>
+<option value="500">5:00 Hours</option>
+<option value="515">5:15 Hours</option>
+<option value="530">5:30 Hours</option>
+<option value="545">5:45 Hours</option>
+<option value="600">6:00 Hours</option>

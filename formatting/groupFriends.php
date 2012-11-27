@@ -3,7 +3,9 @@
 <script type="text/javascript">
 		$(".groupFriends").html("Hello World!");
 		var groupId2 = <?php echo $groupId ?>;
-		var eventURL2 = "./formatting/master_push.php?group="+groupId2;
+		var userName = <?php echo "\"".$_SESSION["userName"]."\""; ?>;
+		//console.log(userName);
+		var eventURL2 = "./formatting/master_push.php?group="+groupId2+"&userName="+userName;
 		//console.log(eventURL);
 		//functions here
 		if(typeof(EventSource)!=="undefined")
@@ -14,9 +16,17 @@
 		    eSource2.addEventListener('groupFriends', function(event)
 		    {
 			//write the received data to the page
+			console.log(event.data);
 			$(".groupFriends").html(event.data);
 			$(".groupFriends" ).collapsibleset( "refresh" );
 		    });
+		    eSource2.addEventListener('notInGroup', function(event)
+		    {
+			console.log(event.data);
+			//write the received data to the page
+			$(".friendsNotInGroup").html(event.data);
+			$(".friendsNotInGroup").collapsibleset("refresh");
+	           });
 		}
 		else
 		{

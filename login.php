@@ -1,16 +1,113 @@
 <?php session_start();
 
-if (isset($_SESSION['userName'])) {
-	session_destroy();
+
+if(file_exists("config.php")){
+				include("config.php");
 }
 
+// Facebook Stuff
+require 'src/facebook.php';
+
+// Create our Application instance (replace this with your appId and secret).
+$facebook = new Facebook(array(
+  'appId'  => '210452582423240',
+  'secret' => 'e6c1416257d02ed499a5cdbdc31f4a13',
+));
+
+// Get User ID
+$uid = $facebook->getUser();
+if (isset($_SESSION['userName'])) {
+	session_destroy();
+	$uid = null;
+}
+
+// if user is not empty then try adding user info to 
+// the database, set the session, and redirect it to iAmHungry.php.
+if(!empty($uid)) { 
+    # Active session, let's try getting the user id (getUser()) and user info (api->('/me'))  
+    try{  
+        //$uid = $facebook->getUser();  
+        //$user_profile = $facebook->api('/me');
+        
+        $user_profile = $facebook->api('/me','GET');
+        
+        // try pulling this User from MySQL
+        
+		$sql="SELECT * FROM users WHERE facebookID LIKE '$uid'";
+		$result=mysql_query($sql);
+		$row=mysql_fetch_array($result);
+		
+		// check if we have that user already
+		if(mysql_num_rows($result)>0)
+		{
+			//set Session username
+			$_SESSION['userName']=$row['userName'];
+			$_SESSION['groupNumber']=$row['groupNumber'];
+			//redirect to 
+			
+		}else{
+			$userName =$user_profile['first_name'].$user_profile['middle_name'].$user_profile['last_name'];
+			$firstName =$user_profile['first_name'];
+			$lastName =$user_profile['last_name'];
+			$password = $user_profile['last_name'];
+			$email =$user_profile['last_name'];
+			$facebookID = $user_profile['id'];
+			$userIcon = $user_profile['id'].'.jpg';
+			
+			//sign this person up!
+			$sql = "INSERT INTO users (`userNumber` ,`userName` ,`firstName` ,`lastName` ,`password` ,`email` ,`facebookID`  ,`usericon`,  `activeSession` ,`hungry` ,`startTime` ,`endTime` ,`groupNumber`) VALUES (NULL ,'$userName',  '$firstName',  '$lastName',  '$password',  '$email',  '$facebookID', '$userIcon',  '0',  '0',  '0',  '0',  '0')";
+	
+			$result_insert=mysql_query($sql);
+			
+			if($result_insert){
+				
+				//now set the session from here if needed
+				$_SESSION['userName']=$userName; 
+				// save the image off
+				//$img = file_get_contents('https://graph.facebook.com/'.$fid.'/picture');
+				//$file = dirname(__file__).'/images/'.$fid.'.jpg';
+				//$file = '/images/'.$fid.'.jpg';
+				//file_put_contents($file, $img);
+				
+			}
+			else{
+				echo $sql;
+				echo $result_insert;
+				die("There was an error submitting."); 
+				//echo $result_insert;
+			}
+		
+			
+		}
+		
+        header("Location: http://stanford.edu/~rerich/cgi-bin/CS147/iAmHungryPage.php");  
+    } catch (Exception $e){
+    	//die("There was an error here.".$e); 
+    	# There's no active session, let's generate one  
+    	$user_profile = null;
+    	$uid = null;
+    	$login_url_no_active_session = $facebook->getLoginUrl();  
+       	}  
+     
+} 
+else {  
+    # There's no active session, let's generate one  
+    $login_url_no_active_session = $facebook->getLoginUrl(array(
+		'redirect_uri'	=> 'http://stanford.edu/~rerich/cgi-bin/CS147/login.php' // URL to redirect the user to once the login/authorization process is complete.
+		)); 
+     
+}  
+ 
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
-
-?> 
+?>
 <style type="text/css">
-
+  body.connected #login { display: none; }
+  body.connected #logout { display: block; }
+  body.not_connected #login { display: block; }
+  body.not_connected #logout { display: none; }
+      
 h1 {color: white}
 .buttondiv {
 margin-top: 10px;
@@ -102,15 +199,21 @@ $(document).ready(function()
 	});
 	*/
 });
+
+     
 </script>
+
 
 	<div data-role="header">
 	<h1>Wolfpack! <img src="images/logo_icon_invert.png" height="14px"/></h1>
+	<meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
 	</div><!-- /header -->
 
 	<div data-role="content">
-	<!--<center><!--<img width=100% src="images/fbicon.png"></center>-->
+	
+		<!--<center><!--<img width=100% src="images/fbicon.png"></center>-->
 	<center><img src="images/logo_welcome.png" width=100%></center>
+	
 	<form action="" method="post" class="login_form" id="login_form1">
 	<label for="foo">Username:</label>
 	<input type="text" name="username" id="username">
@@ -123,7 +226,92 @@ $(document).ready(function()
     <input type="submit" id="submit" value="Login">
     
 	</form>
+	<div id="fb-root"></div>
+	<div id="user-info"></div>
+	<script>
 	
+//facebook crap
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '210452582423240', // App ID
+      //channelUrl : 'http://stanford.edu/~rerich/cgi-bin/CS147/channel.php', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true,  // parse XFBML
+        oauth: true
+    });
+
+    FB.Event.subscribe('auth.statusChange', handleStatusChange);
+  };
+
+function handleStatusChange(response) {
+      //document.body.className = response.authResponse ? 'connected' : 'not_connected';
+      if (response.authResponse) {
+        console.log(response);
+
+        updateUserInfo(response);
+      }
+    }
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+   
+   
+ 	function loginUser() {    
+     	FB.login(function(response) { }, {scope:'email'});     
+    }
+     
+
+	(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=210452582423240";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		function handleResponseChange(response) {
+		   alert(response);
+		   
+		   if (response.authResponse) {
+		     console.log(response);
+		      updateUserInfo(response);
+		   }
+		 }
+		 
+		 function updateUserInfo(response) {
+		 	
+		     FB.api('/me', function(response) {
+		       document.getElementById('user-info').innerHTML = '<img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
+		     });
+		   }
+	</script>
+	<?php
+	if(isset($login_url_no_active_session)){
+		echo "<div id=\"login\">";
+	   		
+	   	//echo	"<div class=\"fb-login-button\" data-show-faces=\"true\" registration-url=\"http://stanford.edu/~rerich/cgi-bin/CS147/iAmHungryPage.php\" data-width=\"300\" size=\"xlarge\" data-max-rows=\"1\"></div>";
+	   	
+	   	//echo	"<div class=\"fb-login-button\" data-show-faces=\"true\" data-width=\"300\" size=\"xlarge\" data-max-rows=\"1\"></div>";
+	   	//echo    "<p><button onClick=\"loginUser();\">Login with FB</button></p>";
+	   	echo 'Or <a href="' . $login_url_no_active_session . '">login with Facebook.</a>';
+		echo	"</div>";
+		
+	}else{
+		
+		echo "<div id=\"logout\">";
+	   	echo "<p><button  onClick=\"FB.logout();\">Logout</button></p>";
+		echo "</div>";
+	
+	}
+	?>
+
 	<a href="signup.php" data-role="button"> Sign Up for a Wolfpack Account</a>
 		
 	

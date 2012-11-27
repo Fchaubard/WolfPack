@@ -5,11 +5,47 @@
     
     
     $oldFriendString = "";
+    $oldChatString = "";
     $oldGroupString = "";
     $oldInviteString = "";
     $oldGroupFriendString = "";
+    $oldGroupFriendsNotString = "";
     include("../config.php");
     mysql_close($link);
+    
+    function chatLoad()
+    {
+        $groupId = $_GET["group"];
+        if(!$groupId)
+        {
+            return "";
+        }
+        $resultString = "";
+        $count =0;
+        $query = "SELECT * FROM chat WHERE groupId=\"".$groupId."\" order by id desc";
+        $result = mysql_query($query)or die(mysql_error());
+        while($row = mysql_fetch_array($result)){
+                if(1) //$row["userName"]!=$_SESSION['userName']
+                {
+                		$sender = $row['sender'];
+						$message = $row['text'];
+						$date = $row['dateSent'];
+						list($day, $time) = explode('*', $date);
+			
+                        $one = "<div data-role=\"collapsible\" data-collapsed=\"true\">";
+                        $two = "<p><strong>(".$time.") ".$sender.": </strong>".$message."</p>";
+                        
+                        $five = "</div>";
+                        
+                        $resultString = $resultString.$one.$two.$five;
+                        $count = $count+1;
+                }
+        }
+        if($count==0){
+                $resultString = "<p>It seems no one is chatting yet! Start the chat!</p>";
+        }
+        return $resultString;
+    }
     
     function groupFriends()
     {
@@ -242,6 +278,66 @@
 		}
 		return $resultString;
 	}
+        function notInGroup()
+        {
+            $resultString = "";
+            $userName = $_GET['userName'];
+            if(!$userName)
+            {
+                return "no name.";
+            }
+            $query = "SELECT * FROM friends WHERE user=\"".$userName."\"";
+            $result = mysql_query($query)or die(mysql_error());
+            while($row = mysql_fetch_array($result)){
+                    $query2 = "SELECT * FROM users WHERE userName=\"".$row["friend"]."\" AND hungry=1 AND groupNumber=0";
+                    $result2 = mysql_query($query2)or die(mysql_error());
+                    while($row2 = mysql_fetch_array($result2)){
+                            if($row2["usericon"] == "")
+                            {
+                                    $icon2 = "obama.jpeg";
+                            }
+                            else
+                            {
+                                    $icon2 = $row2["usericon"];
+                            }
+                            $icon = "./images/".$icon2;
+                            $one = "<div data-role=\"collapsible\" data-collapsed=\"true\">";
+                            $two = "<h3><img src=\"".$icon."\" height=50 width=50> ".$row["friend"]."</h3>";
+                            $startTime = $row2["startTime"];
+                            $stopTime = $row2["endTime"];
+                                    $timeOfDay = "AM";
+                                    $hour = $startTime/100;
+                                    if($hour>=12 && $hour<24){
+                                            $timeOfDay="PM";
+                                    }
+                                    if($hour>=13){
+                                            $hour=$hour%12;
+                                    }
+                                    $minutes = $startTime%100;
+                                    if($minutes==0){
+                                            $minutes = "00";
+                                    }
+                            $startTimeString=$hour.":".$minutes.$timeOfDay;
+                                    $timeOfDay = "AM";
+                                    $hour = $stopTime/100;
+                                    if($hour>=12 && $hour<24){
+                                            $timeOfDay="PM";
+                                    }
+                                    if($hour>13){
+                                            $hour=$hour%12;
+                                    }
+                                    $minutes = $stopTime%100;
+                                    if($minutes==0){
+                                            $minutes = "00";
+                                    }
+                            $stopTimeString = $hour.":".$minutes.$timeOfDay;
+                            $three = "<p>Available from: ".$startTimeString." - ".$stopTimeString."</p>";
+                            $four = "</div>";
+                            $resultString = $resultString.$one.$two.$three.$four;
+                    }
+            }
+            return $resultString;
+        }
     while(true)
     {
 	$link = mysql_connect($sqlAddress, $sqlUser, $sqlPass);
@@ -254,6 +350,15 @@
             echo "data: $resultStringEncode \n\n";
             flush();
             $oldFriendString = $resultString;
+        }
+	$resultString = chatLoad();
+        if($oldChatString <> $resultString)
+        {
+            $resultStringEncode = $resultString;
+            echo "event: chatLoad\n";
+            echo "data: $resultStringEncode \n\n";
+            flush();
+            $oldChatString = $resultString;
         }
 	$resultString = groupsList();
         if($oldGroupString <> $resultString)
@@ -282,9 +387,21 @@
             flush();
             $oldGroupFriendString = $resultString;
         }
+        $resultString = notInGroup();
+        if($oldGroupFriendsNotString <> $resultString)
+        {
+            $resultStringEncode = $resultString;
+            echo "event: notInGroup\n";
+            echo "data: $resultStringEncode \n\n";
+            flush();
+            $oldGroupFriendsNotString = $resultString;
+        }
         
         mysql_close($link);
         sleep(3);
     }
+    
+    
+    
     
 ?>
