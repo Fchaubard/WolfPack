@@ -22,7 +22,17 @@ if(file_exists("./formatting/header.php")){
 	</div><!-- /header -->
 
 	<div data-role="content">	
+		<div class="introInfo" data-role="content" data-theme="a"></div>
+		<script type="text/javascript">
 		
+		 	$(".logingout").click(function() {
+				localStorage.clear();
+				FB.logout(function() { window.location='account/logout' });
+				document.location = "login.php";
+			});
+			
+			popupManager(".introInfo", "Welcome to Wolfpack! These helpful popouts should get you oriented. Simply tap them and they'll disappear, never to trouble you again.");
+		</script>
 		
 		<?php
 			$task = $_POST["task"];
@@ -38,7 +48,7 @@ if(file_exists("./formatting/header.php")){
 			<script type="text/javascript"> //this isn't doing ANYTHING!!!
 				// Save the username in local storage. That way you
 				// can access it later even if the user closes the app.
-				localStorage.setItem('username', '<?=$_POST["username"]?>');
+				//localStorage.setItem('username', '\"<?=$_POST["username"]?>\"');
 			</script>
 			<?php
 			

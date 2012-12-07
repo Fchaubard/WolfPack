@@ -27,7 +27,8 @@ if(file_exists("./formatting/header.php")){
 	<div data-role="content">	
 		 <script type="text/javascript">
 		 	$(".logingout").click(function() {
-				
+				localStorage.clear();
+				FB.logout(function() { window.location='account/logout' });
 				document.location = "login.php";
 			});
 			
@@ -40,6 +41,10 @@ if(file_exists("./formatting/header.php")){
 				})
 				$.each(listitems, function(idx, itm) { mylist.append(itm); });
 			});
+		</script>
+		<div class="mainPageHeader" data-role="content" data-theme="a"></div>
+		<script type="text/javascript">
+			popupManager(".mainPageHeader", "Welcome to the \"Hungry\" page. Here you can find other hungry people, join a pack (group) or start your own pack!");
 		</script>
 		<?php 
 
@@ -60,7 +65,7 @@ if(file_exists("./formatting/header.php")){
 			//echo $queryString;
 			$result = mysql_query($queryString)or die(mysql_error());
 		}
-			echo "<p>Hey <strong>".$_SESSION['userName']."</strong>. You're a wolf.. but you have no Wolf Pack!</p>";
+			echo "<p>Hey <strong>".$_SESSION['userName']."</strong>. You're a wolf.. but you have no Wolf Pack!</p><script>console.log(localStorage.getItem('url_name'));		console.log(localStorage.getItem('userName'));</script>";
 			?>
 			<h2 class="hungryFriends">Hungry Friends:</h2>
 			<!--<input type="button" id="test" value="Sort List (click again to reverse)"/>-->
@@ -103,15 +108,5 @@ if(file_exists("./formatting/header.php")){
 	?>
 	
 </div><!-- /page -->
-<script type="text/javascript">
-	var divOffset = $(document).width() * -0.5;
-	$('.headerBar').popover({
-		classes: "popover",
-		position: 'bottom',
-		//horizontalOffset: divOffset,
-		content: "Welcome to the \"Hungry\" page. Here you can find other hungry people, join a pack (group) or start your own pack!"
-	});
-	$('.headerBar').popover('show');
-</script>
 </body>
 </html>

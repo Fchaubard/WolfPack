@@ -66,6 +66,10 @@ if(file_exists("./formatting/header.php")){
 	});
 	</script>
 	<div data-role="content" class="userListContainer">
+	    <div class="addRemFriends" data-role="content" data-theme="a"></div>
+	<script type="text/javascript">
+		popupManager(".addRemFriends", "Tap below to add and remove friends!");
+	</script>
 	<?php
 			if(file_exists("./formatting/fullUserList.php")){
 				include "./formatting/fullUserList.php";

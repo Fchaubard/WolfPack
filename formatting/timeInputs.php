@@ -9,7 +9,7 @@ if(file_exists("./formatting/times.php")){
 
 ?>
 </select>
-
+<div class="startTimeInfo" data-role="content" data-theme="a">test</div>
 <p> Until: </p>
 <select id="stopTime" name="stopTime">
 <?php
@@ -20,7 +20,7 @@ if(file_exists("./formatting/times.php")){
 
 ?>
 </select>
-
+<div class="stopTimeInfo"  data-role="content" data-theme="a">test</div>
 <script>
 	function updateTime()
 	{
@@ -85,11 +85,7 @@ if(file_exists("./formatting/times.php")){
 	$(document).bind('pageinit', function() {
 		updateTime();
 	});
-	$('#startTime').popover({
-		classes: "popover",
-		verticalOffset: 40,
-		position: 'bottom',
-		content: "Click here to choose when you want to start eating.<br>Click below to select when you wish to finish eating."
-	});
-	$('#startTime').popover('show');
+	
+	popupManager(".startTimeInfo", "Touch above to select when you will be ready to eat.");
+	popupManager(".stopTimeInfo", "Touch above to select when you want to be done eating.");
 </script>

@@ -1,6 +1,6 @@
 <?php
 		
-header('Location: http://stanford.edu/~rerich/cgi-bin/CS147/login.php');
+header('Location: http://hungrylikethewolves.com/login.php');
 
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";

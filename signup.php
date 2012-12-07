@@ -4,7 +4,6 @@ session_destroy();
 if(file_exists("./formatting/header.php")){
 	include "./formatting/header.php";
 }
-
 ?> 
 
 

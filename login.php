@@ -60,7 +60,7 @@ if(!empty($uid)) {
 	
 			$result_insert=mysql_query($sql);
 			
-				
+			
 			
 			$to = $email;
 			$subject = "Welcome to the Wolfpack";
@@ -95,7 +95,7 @@ if(!empty($uid)) {
 			
 		}
 		
-        header("Location: http://stanford.edu/~rerich/cgi-bin/CS147/iAmHungryPage.php");  
+        header("Location: http://hungrylikethewolves.com/iAmHungryPage.php");  
     } catch (Exception $e){
     	//die("There was an error here.".$e); 
     	# There's no active session, let's generate one  
@@ -109,7 +109,7 @@ if(!empty($uid)) {
 else {  
     # There's no active session, let's generate one  
     $login_url_no_active_session = $facebook->getLoginUrl(array(
-		'redirect_uri'	=> 'http://stanford.edu/~rerich/cgi-bin/CS147/login.php' // URL to redirect the user to once the login/authorization process is complete.
+		'redirect_uri'	=> 'http://hungrylikethewolves.com/login.php' // URL to redirect the user to once the login/authorization process is complete.
 		)); 
      
 }  
@@ -163,10 +163,17 @@ margin-top: 10px;
 
 $(document).ready(function()
 {
+	console.log(localStorage.getItem('url_name'));
+	console.log(localStorage.getItem('userName'));
+	
+	if(localStorage.getItem('userName')!=null)
+	{
+		//alert(localStorage.getItem('url_name'));
+		document.location = localStorage.getItem('url_name');
+	}
 	
 	$(".login_form").submit(function()
 	{
-		
 		//remove all the class add the messagebox classes and start fading
 		$("#msgbox").removeClass().addClass('messagebox').text('Validating....').fadeIn(1000);
 		//check the username exists or not from ajax

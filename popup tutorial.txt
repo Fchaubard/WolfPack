@@ -1,0 +1,6 @@
+This goes where you want the popup, change the name of the class:
+<div class="startTimeInfo" data-role="content" data-theme="a"></div>
+
+this JS makes it work:
+popupManager(".startTimeInfo", "Touch above to select when you will be ready to eat.");
+AT THE END OF THE FILE!!

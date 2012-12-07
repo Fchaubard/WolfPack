@@ -4,7 +4,7 @@
 		  window.fbAsyncInit = function() {
     FB.init({
       appId      : '210452582423240', // App ID
-      channelUrl : 'http://stanford.edu/~rerich/cgi-bin/CS147/channel.php', // Channel File
+      channelUrl : 'http://hungrylikethewolves.com/channel.php', // Channel File
       status     : true, // check login status
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
@@ -63,8 +63,8 @@
 			
 			$(".logingout").click(function() {
 				
+				localStorage.clear();
 				FB.logout(function() { window.location='account/logout' });
-				
 				document.location = "login.php";
 			});
 			

@@ -58,6 +58,7 @@ if(file_exists("./formatting/header.php")){
 			$gn=$_POST["groupName"];
 			$buttonCount = $_POST["buttonCount"];
 			$loc = $_POST["location"];
+			echo "Mode: ".$_POST["radio-view"];
 			if($_POST["radio-view"] == "open")
 			{
 				$privacy = 2;
@@ -141,7 +142,17 @@ if(file_exists("./formatting/header.php")){
 
        
         ?>
-
+	<div class="currentPackHeader" data-role="content" data-theme="a"></div>
+	<script type="text/javascript">
+	
+		 	$(".logingout").click(function() {
+				localStorage.clear();
+				FB.logout(function() { window.location='account/logout' });
+				document.location = "login.php";
+			});
+			
+		popupManager(".currentPackHeader", "This is the \"My Wolfpack\" page. Here you can see everything about your pack and your plans to eat. Tap the names below to see whether your friends have responded or not.");
+	</script>
 <?php
     
     $query = "SELECT * FROM groups WHERE id=\"".$groupId."\"";
@@ -149,16 +160,25 @@ if(file_exists("./formatting/header.php")){
     while($row = mysql_fetch_array($result)){
         $groupName = $row['name'];
     }
+    ?>
+    <?php
     if(file_exists("./formatting/myGroupList.php")){
         include "./formatting/myGroupList.php";
     }
     ?>
+    	
+
+    
 <?php
     echo "<form action=\"addMoreFriends.php\" method=\"post\"><input type=\"submit\" onclick=\"eSource2.close();\" value=\"Invite More People!\"/></form>";
     echo "<form action=\"mainPage.php\" method=\"post\"><input type=\"hidden\" value=\"leave\" name=\"task\"><input type=\"submit\" onclick=\"eSource2.close();\" value=\"Leave Group!\"/></form>";
     echo "<form action=\"iAmHungryPage.php\" method=\"post\"><input type=\"hidden\" value=\"notHungry\" name=\"task\"><input type=\"submit\" onclick=\"eSource2.close();\" value=\"I'm Not Hungry Anymore!\"/></form>";
     ?>
     
+	<div class="chatPack" data-role="content" data-theme="a"></div>
+	<script type="text/javascript">
+		popupManager(".chatPack", "Join in the livechat and help decide where you're going!");
+	</script>
     <?php
     	if(file_exists("./comments.php")){
         include "./comments.php";

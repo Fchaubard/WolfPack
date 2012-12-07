@@ -1,0 +1,13 @@
+{
+  "name": "Wolfpack!",
+  "description": "Wolfpack will halp you find which of your friends are avialable for a meal and then setup a quick bite.",
+  "launch_path": "/",
+  "icons": {
+    "128": "/images/fficon.png"
+  },
+  "developer": {
+    "name": "Wolfpack For CS147, A Class-Act.",
+    "url": "http://www.hungrylikethewolves.com/"
+  },
+  "default_locale": "en"
+}
